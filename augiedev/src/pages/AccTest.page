@@ -1,0 +1,61 @@
+<apex:page controller="AccountExtension1" showHeader="false">
+<apex:stylesheet value="{!URLFOR($Resource.jMenu,'jMenu/jquery/jMenu.jquery.css')}"></apex:stylesheet>
+<apex:includeScript value="{!URLFOR($Resource.jMenu,'jMenu/jquery/jquery.js')}"></apex:includeScript>
+<apex:includeScript value="{!URLFOR($Resource.jMenu,'jMenu/jquery/jquery-ui.js')}"></apex:includeScript>
+<apex:includeScript value="{!URLFOR($Resource.jMenu,'jMenu/jquery/jMenu.jquery.js')}"></apex:includeScript>
+<script>
+//$(selector).jMenu({options});
+
+$(document).ready(function(){
+  $("#jMenu").jMenu();
+});
+</script>
+This is a test<br />
+    Done!
+    
+    <p><apex:outputText value="{!StringCtr}"></apex:outputText></p>
+<!-- 
+<apex:outputText value="{!stringCtr}" />
+
+<apex:datatable value="{!innerProds}" var="ip" border="2" cellspacing="2" cellpadding="2">
+
+   <apex:column >
+      <apex:outputText value="{!ip.prodName}" />
+   </apex:column>
+      <apex:column >
+   <apex:outputText value="{!ip.prodCode}" />
+   </apex:column>
+   <apex:column >
+      <apex:outputText value="{!ip.unitPrice}" />
+   </apex:column>   
+    
+   <apex:column >
+      <apex:outputText value="InnerProducts" />
+   </apex:column>
+
+</apex:datatable>
+-->
+
+<ul id="jMenu">
+
+    <apex:outputPanel rendered="{!AND(ISPICKVAL($User.UserType,'Guest'), $Site.LoginEnabled)}">
+    <li><a class="fNiv">TODO</a>
+       <ul>
+	      <li><a href="SiteLogin">Login</a></li>
+	      <li><a href="Register1">Register</a></li>
+	      <li><a href="ForgotPassword">Forgot Password</a></li>
+	   </ul>
+	</li>
+	</apex:outputPanel>
+	<apex:outputPanel rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}">
+	<li><a class="fNiv">MY PROFILE</a>
+	   <ul>
+       	 <li><a href="ViewProfle">View Profile</a></li>
+       	 <li><a href="ViewProfle">Edit Profile</a></li>
+         <li><a href="ViewProfle">View Agenda</a></li>
+         <li><a href="ViewProfle">Edit Agenda</a></li>
+	   </ul>
+	</li>
+	</apex:outputPanel>
+</ul>
+</apex:page>

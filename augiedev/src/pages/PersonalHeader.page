@@ -1,0 +1,78 @@
+<apex:page showHeader="false" id="personalHeader">
+<apex:stylesheet value="{!URLFOR($Resource.jMenu,'jMenu/jquery/jMenu.jquery.css')}"></apex:stylesheet>
+<apex:stylesheet value="{!URLFOR($Resource.jQueryFiles,'jQueryFiles/css/ui-lightness/jquery-ui-1.8.7.custom.css')}"></apex:stylesheet>
+<apex:includeScript value="{!URLFOR($Resource.jMenu,'jMenu/jquery/jquery.js')}"></apex:includeScript>
+<apex:includeScript value="{!URLFOR($Resource.jMenu,'jMenu/jquery/jquery-ui.js')}"></apex:includeScript>
+<apex:includeScript value="{!URLFOR($Resource.jMenu,'jMenu/jquery/jMenu.jquery.js')}"></apex:includeScript>
+<script>
+//$(selector).jMenu({options});
+
+$(document).ready(function(){
+  $("#jMenu").jMenu();
+});
+</script>
+<style>
+body {
+   margin: 0px;
+   padding: 0px;
+   background: #FFFFFF url("<apex:outputText value="{!URLFOR($Resource.jQueryFiles,'jQueryFiles/images/background.jpg')}" />") repeat-x;
+}
+#titleDiv {
+   position: relative;
+   top: 0px;
+   margin-top: 20px;   
+   margin-left: 80px;
+   margin-right: 80px;  
+   text-align: center;
+   font-size: 20px;
+}
+
+#menuDiv {
+   position: relative;
+   background: #322f32;
+   margin-left: 80px;
+   margin-right: 80px;
+   height: 35px;
+   text-align: right;
+}
+#mainDiv {
+   position: relative;
+   margin-top: 20px;
+   margin-left: 20px;
+   margin-right: 20px;
+   padding: 20px;
+   border-style: solid; 
+   border-width: 1px;   
+}
+#pageTitle {
+   position: relative;
+   font-size: 40px;
+   font-family: Garamond, Georgia, Times, “Times New Roman”, serif;
+   font-weight: bold;
+}
+#bodyDiv {
+   position: relative;
+   top: 0px;
+   height: 100%;
+   border-style: solid; 
+   border-width: 1px;
+   margin-left: 80px;
+   margin-right: 80px;
+   margin-bottom: 80px;
+   background: #d2cfd3;
+}
+</style>
+
+<div id="titleDiv"><apex:image url="{!URLFOR($Resource.jQueryFiles, 'jQueryFiles/images/sss3.gif')}" /></div>
+
+<div id="menuDiv">
+	<ul id="jMenu">
+	   <li><a href="/apex/PersonalIndex">Home</a></li>
+	   <li><a href="/apex/PersonalAboutMe">About Me</a></li>
+	   <li><a href="/apex/PersonalPortfolio">Portfolio</a></li>
+	   <li><a href="/apex/PersonalContact">Contact</a></li>
+	   <li><a class="fNiv"></a></li>
+	</ul>
+</div>
+
+</apex:page>

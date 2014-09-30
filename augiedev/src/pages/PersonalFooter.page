@@ -1,0 +1,15 @@
+<apex:page showHeader="False">
+<style>
+#footerDiv {
+   position: relative;
+   margin-left: 80px;
+   margin-right: 80px;
+   //padding: 20px;
+   text-align: center;
+} 
+</style>
+<div id="footerDiv">
+Copyright 2011
+</div>
+
+</apex:page>

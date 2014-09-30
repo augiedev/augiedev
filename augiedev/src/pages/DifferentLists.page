@@ -1,0 +1,22 @@
+<apex:page controller="DifferentListsController">
+
+    Accounts List - Enhanced List
+    <apex:enhancedList type="Account" height="300">
+    </apex:enhancedList>
+    
+    Accounts List - List Views
+    <apex:listViews type="Account"></apex:listViews>
+
+    Chart
+    <apex:pageBlock >
+	    <apex:pageBlockSection columns="1" id="chartSection">
+		    <apex:chart height="300" width="300" data="{!pieData}" theme="Sky" >
+		        <apex:pieSeries dataField="data" labelField="name">
+		          <apex:chartLabel color="Blue" />
+		          <apex:chartTips height="20" width="60"  />  
+		        </apex:pieSeries>
+		        <apex:legend position="right" />
+		    </apex:chart>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:page>

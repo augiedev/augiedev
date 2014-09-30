@@ -1,0 +1,40 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false"
+	standardStylesheets="false" cache="true">
+
+	<html>
+<head>
+<title>Solution 6-1: HTML5 Drawing API</title>
+<script type="text/javascript">
+	
+	function drawLogo() {
+		var myCanvas1 = document.getElementById("canvas1");
+		var context = myCanvas1.getContext("2d");
+		
+		context.lineWidth=4;
+		context.beginPath();
+		context.moveTo(190,100);
+		context.lineTo(250,125);
+		context.stroke();
+		
+		context.closePath();
+		
+		context.strokeRect(3, 3, 50, 50);
+		//context.stroke();
+		
+		context.lineWidth=2;
+		context.arc(50, 50, 25, 0, Math.PI*2, true);
+		context.stroke();
+	}
+</script>
+</head>
+<body onload="drawLogo()">
+Up to Page 152
+	<canvas id="canvas1" width="500px" height="200px" style="border: 1px solid #ccc;">
+		Your browser doesn't support the HTML5 canvas element.
+		<img src="fallbackPicture.jpg" alt="fallback picture" />
+	</canvas>
+	
+</body>
+	</html>
+
+</apex:page>

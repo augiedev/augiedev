@@ -1,0 +1,76 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false"
+	standardStylesheets="false" cache="true">
+
+	<html>
+<head>
+<title>Solution 4-1: Using the email input type</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+<style>
+#myForm .required:AFTER {
+	content: "* ";
+	color: red;
+}
+
+#myForm input:REQUIRED {
+	background: red;
+	color: white;
+}
+</style>
+</head>
+<body>
+
+	<form id="myForm">
+
+		<fieldset>
+			<legend>Solution 4-1: Using the email input type</legend>
+			<label for="name">Name</label>
+			<input id="name" name="name" type="text" placeholder="Insert your name" /> <br />
+			<label for="email" class="required">Email</label>
+			<input id="email" name="email" type="email" required="required" /><br />
+			<label for="blog">Blog</label>
+			<input id="blog" name="blog" type="url" /><br />
+			<label>Choose your magic number: </label>
+			<input type="number" min="0" max="100" step="1" value="1" /><br />
+			<label for="magicNumber">Choose your magic number:</label>
+			<input id="magicNumber" name="magicNumber" type="range" min="1" max="10" step="1" onchange="myMagicNumberOutput.value=this.value" />
+			<output id="myMagicNumberOutput" name="myMagicNumberOutput">1</output><br />
+			<label for="multipleFileUpload">Upload one or more files:</label>
+			<input id="multipleFileUpload" name="multipleFileUpload" type="file" multiple="multiple" /><br />
+			<label for="movies">Select your favourite movie:
+				<input id="movies" name="movies" type="text" list="moviesList" onChange="myFavMovieOutput.value=movies.value" />
+				<datalist id="moviesList">
+					<option value="Star Wars" />
+					<option value="The Godfather" />
+					<option value="Gravity" />
+				</datalist>
+			</label>
+			<label for="myFavMovieOutput">Your favourite movie is:
+				<output id="myFavMovieOutput" name="myFavMovieOutput" /><br />
+			</label>
+
+			<p>
+				<label>Choose a date from the Date Picker control: <input type="date" /></label>
+			</p>
+			<p>
+				<label>Select a time: <input type="time" /></label>
+			</p>
+			<p>
+				<label>Select a date and a time: <input type="datetime-local" /></label>
+			</p>
+			<p>
+				<label>Select a month: <input type="month" /></label>
+			</p>
+			<p>
+				<label>Select a week: <input type="week" /></label>
+			</p>
+
+			<input type="submit" value="Submit" />
+
+		</fieldset>
+	</form>
+
+
+</body>
+	</html>
+</apex:page>

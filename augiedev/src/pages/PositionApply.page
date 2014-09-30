@@ -1,0 +1,5 @@
+<apex:page sidebar="false" showHeader="false" controller="ProjectsController">
+
+Content to follow
+
+</apex:page>

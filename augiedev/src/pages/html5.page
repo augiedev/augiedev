@@ -1,0 +1,296 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false"
+	standardStylesheets="false" cache="true" controller="HTML5Controller"
+	action="{!detectDevice}">
+
+	<html>
+<head>
+<title>HTML5 Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+
+<script>
+// If we can, get the position of the user via device geolocation
+if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position){
+		lat = position.coords.latitude;
+        lon = position.coords.longitude;
+        alert('lon: ' + lon);
+		alert('lat: ' + lat);
+	});
+}
+else {
+	alert('nothing found');
+}
+				
+</script>
+
+<style>
+header {
+	color: red;
+	text-align: center;
+}
+
+article aside {
+	width: 270px;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	font-family: georgia, serif;
+	font-size: 140%;
+	letter-spacing: -1px;
+	line-height: 1em;
+	color: #555;
+	float: right;
+	border: 1px solid #000000; 
+}
+
+#quote {
+	margin: 0 10px 0 0;
+	padding: 20px 20px 10px 20px;
+}
+
+#author {
+	margin: 0 10px 0 0;
+	padding: 0 0 10px 0;
+	color: #999;
+	font-size: 60%;
+}
+
+#author a {
+	margin: 0 10px 0 0;
+	padding: 0 0 10px 0;
+	color: #999;
+}
+</style>
+</head>
+
+<!-- <body style="background-image: url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTQMwwB9kHVxEEKvFaItO1d4s2DkWjIsTrrXCS8WyIVDgE4rVBU2A'); background-repeat: no-repeat; background-attachment: fixed;"> -->
+<body>
+
+	<header>
+		<h1 style="color: red; font-style: italic;">Baking Cheesecakes</h1>
+		<hr />
+		<hgroup draggable="true">
+			<h2>Dog Agility Club of Indiana</h2>
+			<h4>Training for canine athletes and their humans</h4>
+		</hgroup>
+	</header>
+
+	<nav>
+		<a href="/Baking/" target="_blank">Baking</a> |
+		<a href="/ingredients/" target="_blank">Ingredients</a> |
+		<a href="/mixing/" target="_blank">Mixing</a> |
+		<a href="html5AudioVideo">Audio/Video</a> | 
+		<a href="html5Drawing">Drawing</a> | 
+		<a href="html5Form">Form</a>
+	</nav>
+	<p>This is your new Page in HTML 5</p>
+
+	<figure>
+		<img
+			src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTQMwwB9kHVxEEKvFaItO1d4s2DkWjIsTrrXCS8WyIVDgE4rVBU2A" alt="One of many cheesecakes"/>
+		<figcaption>One of our many cheesecakes</figcaption>
+	</figure>
+
+	You are using the agent:
+	<apex:outputText value="{!agent}" />
+	<br /> You are using the device:
+	<apex:outputText value="{!device}" />
+	<br />
+
+	<apex:repeat value="{!pageParameters}" var="param">
+		<p>
+			<apex:outputText value="Parameter Name: {!param}" />
+			<br />
+			<apex:outputText value="Parameter Value: {!pageParameters[param]}" />
+		</p>
+	</apex:repeat>
+
+	<canvas id="myCanvas" width="200" height="100"
+		style="border: 1px solid #000000; color: red; background-color: green;">test</canvas>
+	<dl>
+		<dt>Term 1</dt>
+		<dd>Definition of term 1</dd>
+		<dd>Definition 2 of term 1</dd>
+		<dt>Term 2</dt>
+		<dd>Definition of term 2</dd>
+	</dl>
+
+	<!-- 			<iframe src="http://www.heraldsun.com.au" width="600" height="250" seamless="seamless"></iframe><br/>
+			<iframe src="http://www.friendsofed.com" width="600" height="250" seamless="seamless"></iframe>
+ -->
+	<article style="border: 1px solid #000000;">
+		This is the article tag.
+		<section id="mixing">
+			<h2>The proper way to mix ingredients.</h2>
+			<p>When using a stand-mixer, it is important that you do not
+				overmix</p>
+		</section>
+		<section id="baking">
+			<h2>Proper baking techniques.</h2>
+			<p>It is important that you bake your cheescake using a lot of
+				moisture in the oven.</p>
+		</section>
+	</article>
+
+	<aside
+		style="font-size: larger; font-style: italic; color: blue; float: right; width: 120px; border: 1px solid #000000;">
+		This is the aside tag. To create a water bath, use a pan that will
+		allow you to fill it with boiling water that goes halfway up the
+		springform pan in which the cake is placed.</aside>
+	<p>When baking a cheesecake, it is important not to over bake it.
+		You only want to bake it until the middle has a slight wiggle, not
+		until it is rock solid.</p>
+	<p>It is important that you use a water bath, discussed at the
+		right, to ensure even baking of your cheesecake.</p>
+
+	<section itemscope="itemscope"
+		itemtype="http://www.data-vocabulary.org/Recipe">
+		<h1 itemprop="name">Ciabatta Bread</h1>
+		<p>
+			<a itemprop="author" href="mailto:wschembri@gmail.com" rel="author">Warren
+				Schembri</a>
+		</p>
+
+		<p>
+			<img
+				src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNqAl5wGVnc0S9JnMQ9D3WKXVZ-wUvuCn4VGB1JUdsWBsnIWLr" alt="Ciabatta Bread"
+				itemprop="name" />
+		</p>
+
+		<span itemprop="review"> Ciabatta is an Italian white bread
+			made with wheat flour and yeast. The loaf is somewhat elongated,
+			broad, and flattish. Its name is the Italian word for slipper. There
+			are many variations of Ciabatta. Ciabatta in its modern form was
+			developed in 1982. Since the late 1990s, it has been popular across
+			Europe and the United States. It is widely used as a sandwich bread.
+			From Wikipedia http://en.wikipedia.org/wiki/Ciabatta </span>
+		<h3 itemprop="ingredients" />
+			<ul>
+				<li>1 1/2 cups water</li>
+				<li>15 grams of salt</li>
+				<li>1 teaspoon sugar</li>
+				<li>1 tablespoon olive oil</li>
+				<li>3 1/4 cups all-purpose flour</li>
+				<li>20 grams of fresh yeast</li>
+			</ul>
+		<!-- </h3>  -->
+
+		<h4 itemprop="instructions">
+			Instructions</h4>
+			<ol itemprop="instructions">
+				<li>In Kitchen Aid style mixer, mix all ingredients roughly
+					until combined with paddle. Let it rest for 10 minutes.</li>
+				<li>With the paddle (I prefer the hook to prevent the dough
+					from crawling into the guts of the mixer), beat the living hell out
+					of the batter. It will start out like pancake batter but, in
+					anywhere from 10 to 30 minutes, it will set up and work like a very
+					sticky dough. If it starts climbing too soon, then switch to the
+					hook.</li>
+				<li>You'll know it's done when it separates from the side of
+					the bowl and starts to climb up your hook/paddle, just coming off
+					the bottom of the bowl. (I mean this literally about the climbing—I
+					once didn't pay attention, and it climbed up my paddle into the
+					greasy inner workings of the mixer. It was not pretty!) Anyway, it
+					will definitely pass the windowpane test.</li>
+				<li>Place into a well-oiled container, and let it triple! It
+					must triple! For me, this takes about 2.5 hours. Empty onto a
+					floured counter (scrape if you must, however you got to get the
+					gloop out), and cut into 3 or 4 pieces.</li>
+				<li>Spray with oil and dust with lots of flour. Let it proof
+					for about 45 minutes, which gives you enough time to crank that
+					oven up to 500°F. After 45 minutes or so, the loaves should be
+					puffy and wobbly; now it's iron fist, velvet glove time.</li>
+				<li>Pick up and stretch into your final Ciabatta shapes (~10"
+					oblong rectangles), and flip them upside down. This redistributes
+					the bubbles, so that you get even bubbles throughout. Then place
+					the loaves on parchment or a heavily-floured peel.</li>
+				<li>Try to do it in one motion and be gentle. It might look
+					like you've ruined them completely, but the oven spring is immense
+					on these things.</li>
+				<li>Bake at 500°F until they are 205°F in the center (about
+					15-20 minutes), rotating 180- degrees half way through. Some people
+					like to turn the oven down to 450°F after 10 minutes— whatever
+					floats your boat. I usually bake in 2 batches.</li>
+			</ol>
+		<!-- </h4> -->
+
+		<p itemprop="cookTime">Cook Time: 50 minutes approximately</p>
+	</section>
+
+	<!-- 
+			<details>
+				Details tag.
+			</details>
+			-->
+
+	<article>
+		<h1>Marco Casario Profile</h1>
+		<p>Marco has been passionate about information technology since he
+			was little more than a child and used to program games in BASIC for
+			the Commodore 64 before dedicating himself, while still very young,
+			to innovative projects for the web using Flash and Director. In 2001,
+			he began to collaborate with Macromedia Italy. Since then, he has
+			produced and headed a long series of presentations, conferences, and
+			articles, which you can find listed in detail in his blog
+			(casario.blogs.com), which currently receives several thousand unique
+			visits every day.</p>
+		<aside>
+			<h4 id="quote">
+				Marco is an Adobe Certified Instructor for Flex 3 and AIR (ACI) and
+				an Adobe Certified Expert for LiveCycle Platform, Flash, and
+				Dreamweaver.</h4>
+				<p id="author">
+					<a href="http://casario.blogs.com"> Visit his personal blog !</a>
+				</p>
+<!-- 			</h4> -->
+		</aside>
+		<p>In 2005, Marco founded Comtaste (www.comtaste.com), a company
+			dedicated to exploring new frontiers in RIAs and the convergence
+			between the web and the world of mobile devices. MobyMobile
+			(www.mobymobile.com) and YouThruBiz (www.youthrubiz.com) are
+			representative of their recent work.</p>
+		<p>Another example of Marco's achievements is that he is founder
+			of the biggest worldwide Yahoo Flash Lite UG and of www.augitaly.com,
+			a reference point for the Italian community of Adobe users in which
+			he carries out the role of Channel Manager for the section dedicated
+			to Flex (www.augitaly.com/flexgala.)</p>
+		<p>Speaking Engagements: FATC New York TAC Singapore Adobe MAX
+			(Europe and US) FlashOnTheBeach Brighton FlexCamp London MultiMania
+			Belgium FITC Amsterdam 360Flex AJAXWorld Conference NY city O'Reilly
+			Web 2.0 Summit Berlin Adobe MAX 2007 ... and many others</p>
+	</article>
+
+	<aside>
+		<h4>He is author of the following books:</h4>
+		<ul>
+			<li>HTML5 Solutions: Essential Techniques for HTML5 Developers
+				(Apress)</li>
+			<li>Flex 4 Cookbook (O'Reilly)</li>
+			<li>Professional Flash Catalyst (Wrox)</li>
+			<li>AIR Cookbook (O'Reilly)</li>
+			<li>Advanced AIR Applications (FOED)</li>
+			<li>The Essential Guide to AIR with Flash CS4 (FOED)</li>
+			<li>Flex Solutions: Essential Techniques for Flex 3 Developers
+				(FOED)</li>
+		</ul>
+	</aside>
+
+	<footer title="FooterTitle">
+		<p>This is the footer tag.</p>
+		<p>&copy; 2013 - Warren Schembri Salesforce.com Solutions - All
+			rights reserved</p>
+		<dl>
+			<dt>Fungus</dt>
+			<dd>A primitive, non-vascular, non-photosynthetic form of plant
+				life. Examples include mildews, molds, and mushrooms.</dd>
+			<dt>Nematode</dt>
+			<dd>A microscopic roundworm that lives in the soil. There are
+				both harmful and beneficial nematodes. Harmful ones take their toll
+				on the roots of the plant.</dd>
+		</dl>
+	</footer>
+
+</body>
+	</html>
+
+</apex:page>

@@ -1,0 +1,5 @@
+<apex:page standardController="Lead" extensions="LeadConvertPageController" action="{!IF(PrepareLeadToBeConverted = false, null, URLFOR($Action.Lead.Convert,Id,[retURL=URLFOR($Action.Lead.View,Id)],true))}">
+
+<center><apex:outputPanel style="color:red;font-size:20px;">ERROR. This Lead cannot be converted because blah blah blah</apex:outputPanel></center>
+<apex:detail relatedList="true" relatedListHover="false"/>
+</apex:page>

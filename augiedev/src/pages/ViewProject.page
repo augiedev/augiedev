@@ -1,0 +1,73 @@
+<apex:page showHeader="false" sidebar="false"  controller="ViewProjectController">
+
+<apex:composition template="SeekerTemplate">
+	<apex:define name="body">
+		<apex:variable var="prj" value="{!project}"  />
+		<center><h1><apex:outputText value="PROJECT - {!prj.Title__c}" /></h1></center>
+	 <apex:form >
+		<apex:panelGrid columns="2" border="1" styleClass="text" width="80%" >
+			<apex:panelGrid columns="1">
+			
+			   <apex:outputText value="Company:" styleClass="titles" />
+ 			   <apex:outputText value="{!prj.Account__r.Name}"  />
+			   <apex:outputText value="Location:" styleClass="titles" />
+			   <apex:outputText value="{!prj.Account__r.BillingCity}" />
+			   <apex:outputText value="Start Date:" styleClass="titles" />
+		       <apex:outputText value="{0, date, dd-MM-yyyy}">
+		          <apex:param value="{!prj.Start_Date__c}" />
+		       </apex:outputText>
+			   <apex:outputText value="End Date:" styleClass="titles" />
+		       <apex:outputText value="{0, date, dd-MM-yyyy}" >
+		          <apex:param value="{!prj.End_Date__c}" />
+		       </apex:outputText>
+			   <apex:outputText value="Status:" styleClass="titles" />
+			   <apex:outputText value="{!prj.Status__c}" />
+			   <apex:outputText value="Category:" styleClass="titles" />
+			   <apex:outputText value="{!prj.Category__c}" />
+			   <apex:outputText value="Budget:" styleClass="titles" />
+			   <apex:outputText value="{!prj.Budget__c}" />
+			</apex:panelGrid>
+			
+			<apex:panelGrid columns="1" style="valign: top;">
+			   <apex:outputText value="{!prj.Description__c}" escape="false" />
+		   	   <apex:dataTable value="{!positions}" var="pos" width="300px" >
+		          <apex:column >
+			         <apex:commandLink reRender="posInfo" value="{!pos.Job_Title__c}" status="posInfoLoading">
+		                <apex:param name="posId" value="{!pos.Id}" />
+		             </apex:commandLink>
+		          </apex:column>
+		       </apex:dataTable>
+	    	</apex:panelGrid>
+	    	 
+		</apex:panelGrid>
+
+		<apex:outputPanel id="posInfo">
+		   <apex:variable var="pos" value="{!position}" />
+		   <apex:outputLink value="/ViewPosition?id={!pos.Id}">
+		      <apex:outputText value="{!pos.Job_Title__c}" />
+		   </apex:outputLink>
+		   <apex:panelGrid columns="2" border="1" >
+		      <apex:outputText value="Description:" styleClass="titles" />
+		      <apex:outputText value="{!pos.Description__c}" escape="false" />
+		      <apex:outputText value="Requirements:" styleClass="titles" />
+		      <apex:outputText value="{!pos.Requirements__c}" escape="false" /> 
+		      <apex:outputText value="Benefits:" styleClass="titles" />
+		      <apex:outputText value="{!pos.Benefits__c}" escape="false" />  
+		      <apex:outputText value="Start Date:" styleClass="titles" /> 
+		      <apex:outputText value="{0, date, dd-MM-yyyy}">
+		         <apex:param value="{!pos.Start_Date__c}" />
+		      </apex:outputText>
+		  	  <apex:outputText value="End Date:" styleClass="titles" />
+		      <apex:outputText value="{0, date, dd-MM-yyyy}" >
+		         <apex:param value="{!pos.End_Date__c}" />
+		      </apex:outputText>
+		      <apex:outputText value="Hourly Rate:" styleClass="titles" />
+		      <apex:outputText value="{!pos.Hourly_Rate__c}" escape="false" />
+		      <apex:outputText value="Experience:" styleClass="titles" />
+		      <apex:outputText value="{!pos.Experience__c}" escape="false" />                
+		   </apex:panelGrid>      
+		</apex:outputPanel>
+		</apex:form>
+	</apex:define>
+</apex:composition>
+</apex:page>

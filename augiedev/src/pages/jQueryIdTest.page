@@ -1,0 +1,46 @@
+<apex:page showHeader="false" sidebar="false" Controller="tstpopup">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<!-- 
+	    <script>
+    	jQuery(document).ready(function($){
+        	$('#btn').click(function(e){
+        		e.preventDefault();
+
+            	console.log('The following element was found when looking for an id of \'output1\':');
+            	console.log($('[id$=output1]')); /* Here's where we're grabbing the element. */
+            	$('[id$=output1]').text('But not anymore');
+         	});
+      	});
+	</script>
+	-->
+	<script>
+		j$ = jQuery.noConflict();
+		j$(document).ready(function() {
+			j$("#createContact").click(function() { 
+	        	tstpopup.createContact(j$('[id$=firstName]').val(),j$('[id$=lastName]').val(),handleContactCreate);
+			});
+		});
+	
+		function handleContactCreate(result,event) {
+			if(event.type == 'exception') {
+				alert(event.message);
+			} else {
+				alert('A contact was created with the ID: ' + result);
+			}
+		}
+ </script>
+
+</head>
+
+<apex:outputText value="She sells seashells by the seashore." id="output1"/>
+<apex:outputText value="Peter Piper picked a pack of pickled peppers." id="output2"/><br /><br />
+<apex:form >
+	<apex:outputLabel value="First Name: " />
+	<apex:inputText value="{!firstName}" id="firstName" /><br/>
+	<apex:outputLabel value="Last Name: " />
+	<apex:inputText value="{!lastName}" id="lastName" /><br/>
+	<a href="" id="createContact">Create Contact</a>	
+</apex:form>
+<a href="" id="btn">Click me.</a>
+</apex:page>

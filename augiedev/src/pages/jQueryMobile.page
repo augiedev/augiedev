@@ -1,0 +1,65 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false">
+
+<head>
+	<title>jqueryMobile</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+	<apex:stylesheet value="{!URLFOR($Resource.MobileSample_Resources_jQueryMobile, 'jquery.mobile-1.3.0.min.css')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.MobileSample_Resources_jQueryMobile, 'jquery-1.9.1.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.MobileSample_Resources_jQueryMobile, 'jquery.mobile-1.3.0.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.MobileSample_Resources_jQueryMobile, 'ForceTk.js')}"/>		
+</head>
+
+<body>
+	
+	<!--  Page: mainPage  -->
+	<div data-role="page" id="mainPage">
+	
+		<!-- Header -->
+		<div data-role="header">
+			<h1>My Title</h1>
+		</div>
+	
+		<!-- Content -->
+		<div data-role="content">
+	        <p>Hello World!</p>
+	        <ul data-role="listview" data-inset="true" data-filter="true">
+			    <li data-icon="gear"><a href="#">Acura</a></li>
+			    <li data-icon="grid"><a href="#">Audi</a></li>
+			    <li><a href="#">BMW</a></li>
+			    <li><a href="#">Cadillac</a></li>
+			    <li><a href="#">Ferrari</a></li>
+			</ul>    
+		    <form>
+		    	<label for="slider=0">Input Slider: </label>
+		    	<input type="range" name="slider" id="slider-0" min="0" max="100" value="25"/>
+		    </form>
+		    
+		    <a href="#" data-role="button" data-icon="star" data-theme="e">Star Button</a>
+		    <br/>
+		    <a href="#page2" data-role="button" data-icon="star" data-theme="e" data-transition="flip">Page 2</a>
+	    </div>
+	
+		<!-- Footer -->
+	    <div data-role="footer">
+	        <h4>My Footer</h4>
+		</div>
+	    
+	</div>
+	
+	<div data-role="page" data-dialog="true" id="page2">
+		<div data-role="header">
+			<h1>Dialog Page</h1>
+		</div>
+		
+		<div data-role="main"  class="ui-content">
+			<p>This is my 2nd page</p>
+			<a href="#mainPage" data-role="button" data-icon="star" data-theme="e">Main Page</a>
+		</div>
+		
+		<div data-role="footer">
+			<h4>My Footer</h4>
+		</div>
+	</div>
+
+</body>
+</apex:page>

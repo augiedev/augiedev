@@ -1,0 +1,49 @@
+<apex:page showHeader="false">
+<style>
+.portfolioDiv {
+   display: none;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+
+   $('.portfolioLI').click(function() {
+      $('.portfolioDiv').hide();
+      if ($(this).text() == 'Apex') {
+         $('#apexDiv').show();
+      }
+      else if ($(this).text() == 'VisualForce') {
+         $('#visualForceDiv').show();
+      }
+      return false;
+   });
+});
+
+</script>
+<apex:include pageName="PersonalHeader" />
+
+<div id="bodyDiv" class="ui-corner-all">
+
+	<div id="mainDiv">
+	
+	<div id="pageTitle">Portfolio</div>
+	
+	<ul>
+	   <li><a href="#" class="portfolioLI">Apex</a></li>
+	   <li><a href="#" class="portfolioLI">VisualForce</a></li>
+	   <li>Integration</li>
+	   <li>Web Technologies</li>
+	</ul>
+	
+	<div id="apexDiv" class="portfolioDiv">APEX DIV</div>
+	<div id="visualForceDiv" class="portfolioDiv">VISUALFORCE</div>
+	<div id="integrationDiv" class="portfolioDiv">INTEGRATION</div>
+	<div id="webTechnologiesDiv" class="portfolioDiv">WEB TECHNOLOGIES</div>
+	<p>Below you will find a summary of some of the projects that I have worked on in regards to Salesforce.com<br />
+	These projects utilise such Salesforce technologies as Apex, VisualForce, Salesforce API as well as web technologies as HTML, CSS Javascript and jQuery</p>
+
+	</div>
+</div>
+
+<apex:include pageName="PersonalFooter" />
+</apex:page>

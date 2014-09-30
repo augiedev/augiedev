@@ -1,0 +1,6 @@
+<apex:page controller="CreateOrderController" sidebar="false">
+<!-- Begin Default Content REMOVE THIS -->
+<p><center><h1 style="font-size: 18px;text-align: center;">CONGRATULATIONS</h1></center></p>
+Your order has been processed.
+The order will soon be entered into our Order Processing System and you will received further information from our Sales Support department.
+</apex:page>

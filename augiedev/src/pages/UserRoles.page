@@ -1,0 +1,8 @@
+<apex:page controller="UserRoleController" showHeader="false" sidebar="false">
+<apex:outputText ><p>This is a <br />test</p></apex:outputText>
+<apex:outputText escape="false" value="{!OrgHierarchy}"/>
+
+<c:HierarchicalChart jsondata="{!RoleHierarchy}" 
+       					 size="medium" color="#edf7ff" selectionColor="#d6e9f8" allowCollapse="false"/>
+<!-- initialSelection="[{row:0}]" -->
+</apex:page>

@@ -1,0 +1,18 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false"
+	standardStylesheets="false" cache="true">
+
+	<html>
+<head>
+<title>Solution 5-1: Embedding a video in a web page</title>
+</head>
+<body>
+	<h1>Comtaste's Showreel</h1>
+
+	<video width="640" height="360" autoplay="autoplay" controls="controls">
+		Video is not supported in this browser!
+		<source src="http://warren-schembri-developer-edition.na10.force.com/resource/1384264122000/videoSample/sample_mpeg4.mp4" type="video/mp4" />
+	</video>
+</body>
+	</html>
+
+</apex:page>

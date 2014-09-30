@@ -1,0 +1,10 @@
+<apex:page standardstylesheets="false" sidebar="false" showHeader="false">
+<apex:composition template="SeekerTemplate2">
+
+	<apex:define name="pageTitle">Seeker's - Home</apex:define>
+	<apex:define name="title">Seeker's</apex:define>
+
+	<apex:define name="content">This is my content</apex:define>
+
+</apex:composition>
+</apex:page>

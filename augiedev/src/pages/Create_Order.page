@@ -1,0 +1,125 @@
+<apex:page controller="CreateOrderExtension">
+<style>
+.line {
+   width: 50px;
+}
+.itemCode {
+   width:100px;
+}
+.quantity {
+   width:50px;
+}
+.quantityTitle {
+   vertical-align: middle;
+   font-weight: bold;
+   font-size: 14px;
+   text-align: center;   
+   width:20px;
+}
+.title {
+   vertical-align: middle;
+   font-weight: bold;
+   font-size: 14px;
+   text-align: center;   
+}
+</style>
+
+<apex:form >
+
+<center><h1>Create Order</h1></center><br />
+
+<apex:pageBlock title="Account Information">
+<apex:panelGrid columns="2">
+   <apex:outputText value="Account: " />
+   <apex:outputText value="{!acc.Name}" />
+
+   <apex:outputText value="Contact: " />
+   <apex:panelGroup >
+      <apex:outputText value="{!con.FirstName} " />
+      <apex:outputText value="{!con.LastName}" />
+   </apex:panelGroup>      
+
+   <apex:outputText value="Address: " />
+   <apex:panelGroup >
+      <apex:outputText value="{!acc.BillingStreet}" /><br />
+      <apex:outputText value="{!acc.BillingCity}, " />
+      <apex:outputText value="{!acc.BillingPostalCode}" /><br />
+      <apex:outputText value="{!acc.BillingCountry}" />      
+   </apex:panelGroup>
+   
+</apex:panelGrid>
+</apex:pageBlock>
+
+<apex:pageBlock title="Order Information">
+
+   <apex:panelGrid columns="4" width="80%">
+      <apex:outputText value="Your Reference Number: " />
+      <apex:inputText id="referenceNumber" value="{!referenceNumber}" />
+      
+      <apex:outputText value="Desired Delivery Date" />
+      <apex:inputText id="deliveryDate" value="{!deliveryDate}" />
+   </apex:panelGrid>
+
+</apex:pageBlock>
+
+<apex:pageBlock title="Order Lines" id="orderLinesHeader">
+   <apex:pageBlockButtons >
+      <apex:commandButton value="Add" action="{!add}" reRender="orderLines" /> 
+   </apex:pageBlockButtons>  
+   
+      <apex:panelGrid width="100%" border="1" cellspacing="0" cellpadding="0" columns="5">
+      
+	     <apex:panelGrid style="width: 50px;">
+	        <apex:facet name="header"><center>LINE</center></apex:facet>
+	     </apex:panelGrid>
+	
+	     <apex:panelGrid style="width: 100px;">
+	        <apex:facet name="header"><center>MODEL</center></apex:facet>
+	     </apex:panelGrid>
+	      
+	     <apex:panelGrid style="width: 100px;">
+	        <apex:facet name="header"><center>QUANTITY</center></apex:facet>
+	     </apex:panelGrid>
+	      
+	     <apex:panelGrid style="width: 550px;">
+	        <apex:facet name="header"><center>DESCRIPTION</center></apex:facet>
+	     </apex:panelGrid>
+	      
+	     <apex:panelGrid style="width: 100px;">
+	        <apex:facet name="header"><center>TOTAL PRICE</center></apex:facet>
+	     </apex:panelGrid>                  
+                
+      </apex:panelGrid>    
+
+   <apex:outputPanel id="orderLines">
+	   
+      <apex:repeat value="{!olInnerList}" var="ol" id="lineItem" >
+	     <apex:panelGrid width="100%" cellspacing="0" cellpadding="0" border="1" columns="5">
+	      
+		    <apex:panelGrid style="width: 50px;">
+		       <apex:outputText value="{!ol.recCount}" />
+		    </apex:panelGrid>
+		
+		    <apex:panelGrid style="width: 100px;">  
+               <apex:inputText value="{!ol.model}" size="15" required="true" />   
+		    </apex:panelGrid>
+		      
+		    <apex:panelGrid style="width: 100px;">
+		       <apex:inputText value="{!ol.quantity}" size="4" required="true" /> 
+		    </apex:panelGrid>
+		      
+		    <apex:panelGrid style="width: 550px;">
+		       <apex:outputText value="Signature Series" />
+		    </apex:panelGrid>
+		      
+		    <apex:panelGrid style="width: 100px;">
+		       <apex:outputText value="0" />
+		    </apex:panelGrid>                  
+	                
+	     </apex:panelGrid>        
+      </apex:repeat>    
+	
+   </apex:outputPanel>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

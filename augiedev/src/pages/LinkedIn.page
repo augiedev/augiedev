@@ -1,0 +1,10 @@
+<apex:page controller="LinkedInController" >
+  <apex:form >
+    <apex:outputLink value="{!authorizationCodeURI}">Click Me</apex:outputLink>
+  </apex:form>
+  <div>body : {!body}</div>
+  <br/>
+  <div>Access Token: {!accessToken}</div>
+  <br/>
+  <div>Profile: {!bodyProfile}</div>
+</apex:page>

@@ -1,0 +1,40 @@
+<apex:page controller="RegisterController" showHeader="false" sidebar="false">
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Register 2</h1>
+<apex:form forceSSL="true">
+   <apex:pageBlock title="Register (Step 2 of 2)">
+      <apex:facet name="footer">
+         <apex:outputPanel >
+            <apex:commandButton action="{!register1}" value="Previous" styleClass="btn" />
+            <apex:commandButton action="{!save}" value="Save" styleClass="btn" />
+         </apex:outputPanel>
+      </apex:facet>
+      <apex:pageMessages id="error"/>
+      <apex:panelGrid width="758" cellpadding="0" cellspacing="0" bgcolor="white" columns="2">
+         <apex:outputLabel value="{!$ObjectType.Contact.Fields.Audio_Video_and_Multimedia__c.label}" for="audioVideoMultimedia"/>
+         <apex:selectList value="{!audioVideoMultimedia}" multiselect="true" id="audioVideoMultimedia" size="7">
+            <apex:selectOptions value="{!audioVideoMultimediaOptions}"/>
+         </apex:selectList>
+         
+         <apex:outputLabel value="{!$ObjectType.Contact.Fields.Graphic_Design__c.label}" for="graphicDesign"/>
+         <apex:selectList value="{!graphicDesign}" multiselect="true" id="graphicDesign" size="7" >
+            <apex:selectOptions value="{!graphicDesignOptions}"/>
+         </apex:selectList>
+         
+         <apex:outputLabel value="{!$ObjectType.Contact.Fields.Software_Programming__c.label}" for="softwareProgramming"/>
+         <apex:selectList value="{!softwareProgramming}" multiselect="true" id="softwareProgramming" size="7" >
+            <apex:selectOptions value="{!softwareProgrammingOptions}"/>
+         </apex:selectList>
+         
+         <apex:outputLabel value="{!$ObjectType.Contact.Fields.Web_Development__c.label}" for="webDevelopment"/>
+         <apex:selectList value="{!webDevelopment}" multiselect="true" id="webDevelopment" size="7" >
+            <apex:selectOptions value="{!webDevelopmentOptions}"/>
+         </apex:selectList>
+         
+      </apex:panelGrid>
+
+         
+      
+   </apex:pageBlock> 
+</apex:form> 
+</apex:page>

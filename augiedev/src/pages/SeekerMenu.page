@@ -1,0 +1,70 @@
+<apex:page showHeader="false" sidebar="false">
+<style>
+body {
+   margin: 0px;
+   padding: 0px;
+}
+.header {
+ color: #333;
+ //background: #CCCC33;
+ background: #FFFAE3;
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ font-size: 13px;
+ margin-left: 100px;
+ margin-right: 100px;
+ border-style: solid; 
+ border-width: 1px;
+ vertical-align: text-top;
+}
+</style>
+<div class="header">
+	<center><h1>JOB SEEKERS</h1></center>
+ 
+    <apex:panelGrid columns="6" border="1" width="100%"> 
+ 	<apex:panelGroup rendered="{!AND(ISPICKVAL($User.UserType,'Guest'), $Site.LoginEnabled)}">
+ 		<a href="SiteLogin">Login</a><br />
+ 		<a href="Register1">Register</a><br />
+ 		<a href="ForgotPassword">Forgot Password</a><br />
+ 	</apex:panelGroup>
+ 	
+ 	<apex:panelGroup rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}">
+ 		<p style="vertical-align: top;" ><b>MY PROFILE</b><br/>
+ 		<a href="ViewProfle">View Profile</a><br/>
+ 		<a href="ViewProfle">Edit Profile</a><br/>
+ 		<a href="ViewProfle">View Agenda</a><br/>
+ 		<a href="ViewProfle">Edit Agenda</a><br/></p>
+    </apex:panelGroup>
+ 	
+ 	<apex:panelGroup rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}"> 		
+ 		<p style="vertical-align: text-top;" ><b>PROJECTS</b><br/>
+ 		<a href="SearchProjects">Search Projects</a><br/>
+ 		<a href="ViewProfle">Submit Review</a><br/></p>
+ 	</apex:panelGroup>
+ 	
+ 	<apex:panelGroup rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}">
+ 		<p><b>POSITIONS</b><br/>
+ 		<a href="ViewProfle">Search Positions</a><br/>
+ 		<a href="ViewProfle">Submit Review</a><br/></p>
+    </apex:panelGroup>
+ 	
+ 	<apex:panelGroup rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}"> 		
+ 		<p><b>ACCOUNTS</b><br/>
+ 		<a href="ViewProfle">Search Accounts</a><br/>
+ 		<a href="ViewProfle">Submit Review</a><br/>
+ 		<a href="ViewProfle">Submit Request</a><br/></p>
+    </apex:panelGroup>
+ 	
+ 	<apex:panelGroup rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}"> 		
+ 		<p><b>SEEKER SITE INFO</b><br/>
+  		<a href="ViewProfle">About Us</a><br/>
+ 		<a href="ViewProfle">Contact Us</a><br/>
+ 		<a href="ViewProfle">Disclaimer</a><br/></p> 
+    </apex:panelGroup>
+ 	
+ 	<apex:panelGroup rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}"> 				
+ 		<apex:outputLink value="{!$Site.Prefix}/secur/logout.jsp">{!$Label.site.logout}</apex:outputLink><br/>
+ 	</apex:panelGroup>
+ 	
+ 	</apex:panelGrid>
+</div>
+</apex:page>

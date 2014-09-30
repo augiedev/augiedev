@@ -1,0 +1,119 @@
+<apex:page controller="SiteLoginController">
+<apex:includeScript value="{!URLFOR($Resource.Seeker_JQuery, 'js/jquery-1.4.4.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.Seeker_JQuery, 'js/jquery-ui-1.8.7.custom.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.jMenu, 'jMenu/jquery/jMenu.jquery.js')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.Seeker_JQuery, 'css/custom-theme/jquery-ui-1.8.7.custom.css')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.jMenu, 'jMenu/jquery/jMenu.jquery.css')}"/>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+    	$('[id$=header]').width($(window).width()-200);
+    	$("#jMenu").jMenu({
+	      	ulWidth : 'auto',
+	      	effects : {
+	        	effectSpeedOpen : 400,
+	        	effectSpeedClose : 400,
+	        	effectTypeOpen : 'slide',
+	       		effectTypeClose : 'slide',
+	        	effectOpen : 'linear',
+	        	effectClose : 'linear'
+	      	},
+	      	TimeBeforeOpening : 150,
+		  	TimeBeforeClosing : 300,
+	      	animatedText : false,
+	      	paddingLeft: 0
+    	});
+	});
+
+</script>
+<style>
+body {
+ 	margin: 0px;
+ 	padding: 0px;
+ 	background: #D0D0D0;
+}
+#header {
+ color: #333;
+ background: #FFFAE3;
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ margin-left: 100px;
+ margin-right: 100px;
+ border-style: solid; 
+ border-width: 0px;
+ vertical-align: text-top;
+}
+
+#headerTitle {
+	font-size: 60px;
+}
+
+.loginClass {
+	font-size: 10px;
+}
+</style>
+
+   <apex:insert name="headerMenu">
+		<div id="header">
+			<span id="headerTitle"><center>JOB SEEKERS</center></span>
+		 	<apex:outputPanel id="loginSubPanel" style="text-align: right;" rendered="{!AND(ISPICKVAL($User.UserType,'Guest'), $Site.LoginEnabled)}">
+		 	
+		 		<apex:form id="loginForm" forceSSL="true">
+		 			<apex:outputLabel styleClass="loginClass" value="{!$Label.site.username}: " for="username"/>
+		 			<apex:inputText styleClass="loginClass" id="username" value="{!username}" />
+		 			<apex:outputLabel styleClass="loginClass" value="{!$Label.site.password}: " for="password"/>
+		 			<apex:inputSecret styleClass="loginClass" id="password" value="{!password}" />
+		 			<apex:commandButton styleClass="loginClass" action="{!login}" value="{!$Label.site.login_button}" id="loginButton"/>
+		 			|
+		 			<a class="loginClass" href="Register1">Register</a> | 
+		 			<a class="loginClass" href="ForgotPassword">Forgot Password</a>
+		 		</apex:form>
+		 	</apex:outputPanel>
+
+		 	<apex:outputPanel rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}">
+		 		<ul id="jMenu">
+		 			<li><a class="fNiv">My Profile</a>
+		 				<ul>
+							<li><a href="ViewProfile">View Profile</a></li>
+							<li><a href="EditProfile">Edit Profile</a></li>
+							<li><a href="ViewAgenda">View Agenda</a></li>
+							<li><a href="EditAgenda">Edit Agenda</a></li>
+						</ul>
+					</li>
+		 			<li><a class="fNiv">Projects</a>
+		 				<ul>
+							<li><a href="SearchProjects">Search Projects</a></li>
+							<li><a href="SubmitProjectReview">Submit Review</a></li>
+						</ul>
+					</li>
+		 			<li><a class="fNiv">Positions</a>
+		 				<ul>
+							<li><a href="SearchPositions">Search Positions</a></li>
+							<li><a href="SubmitPositionReview">Submit Review</a></li>
+						</ul>
+					</li>
+					<li><a class="fNiv">Accounts</a>
+		 				<ul>
+							<li><a href="SearchPositions">Search Accounts</a></li>
+							<li><a href="SubmitAccountReview">Submit Review</a></li>
+							<li><a href="SubmitAccountRequest">Submit Request</a></li>
+						</ul>
+					</li>
+					<li><a class="fNiv">Site Info</a>
+		 				<ul>
+							<li><a href="AboutUs">About Us</a></li>
+							<li><a href="ContactUs">Contact Us</a></li>
+							<li><a href="Disclaimer">Disclaimer</a></li>
+						</ul>
+					</li>
+					<li><apex:outputLink styleClass="fNiv" value="{!$Site.Prefix}/secur/logout.jsp">{!$Label.site.logout}</apex:outputLink></li>
+				</ul>
+		 	</apex:outputPanel>
+		</div>   
+   </apex:insert>
+   <hr/>
+   <apex:insert name="body" />
+   <hr/>
+   <apex:insert name="footer">
+   <center>Copyright 2012</center>
+   </apex:insert>
+</apex:page>

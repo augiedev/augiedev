@@ -1,0 +1,9 @@
+<apex:page >
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Congratulations</h1>
+This is your new Page
+<!-- End Default Content REMOVE THIS -->
+
+<chatter:feedWithFollowers entityId="00QF000000SdBd6" showHeader="true" />
+<!-- <chatter:feed entityId="{!$User.Id}" /> -->
+</apex:page>

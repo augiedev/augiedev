@@ -1,0 +1,96 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="true">
+
+<html>
+<apex:includeScript value="{!URLFOR($Resource.learningJQuery13,'ch1/jquery.js')}"></apex:includeScript>
+
+<head>
+	<title>HTml5 24 Trainer</title>
+	<script>
+		var $ = jQuery.noConflict();
+		
+		$(document).ready(function() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);	
+			}
+			else {
+				$('#navigationDiv').html("Your browser does not support Geolocation");
+			}
+		});
+				
+		function showPosition(position) {
+			 $('#navigationDiv').html("Latitude: " + position.coords.latitude + "<br/>Longitude: " + position.coords.longitude + "<br/>Accuracy: " + position.coords.accuracy);																				
+		}
+	</script>		
+</head>
+
+<body>
+	<p>1 Published <time datetime="2009-12-20T17:22:28-05:00" >Thursday, December 20, 2009 at 10:28PM EST</time><br/>
+	2 Published <time datetime="2009-12-20T17:22:28-05:00" ></time><br/>
+	3 Published <time>Thursday, December 20, 2009 at 10:28PM EST</time></p>
+	<p>4 Published <time pubdate="pubdate" datetime="2012-03-01"></time></p>
+	
+	<figure>
+	  	<img src="http://www.extremetech.com/wp-content/uploads/2013/05/image-1.jpg" alt="The Pulpit Rock" width="304" height="228" draggable="true" id="drag1" ondragstart="drag(event)"/>
+	  	<figcaption>Fig1. - The Pulpit Pock, Norway.</figcaption>
+	</figure>
+	
+	<dialog>
+		<dt> Costello </dt>
+		<dd> Look, you gotta first baseman? </dd>
+		<dt> Abbott </dt>
+		<dd> Certainly. </dd>
+		<dt> Costello </dt>
+		<dd> Who's playing first? </dd>
+		<dt> Abbott </dt>
+		<dd> That's right. </dd>
+	</dialog>
+		
+	<p>This is my <mark> mark text</mark>!!</p>
+	
+	<form>
+		Browser: <input list="browsers" /><br/>
+		<datalist id="browsers">
+			<option value="Internet Explorer" />
+			<option value="Firefox" />
+		  	<option value="Chrome" />
+		  	<option value="Opera" />
+		  	<option value="Safari" />
+		</datalist>
+		Color: <input type="color" name="favcolor" /><br/>
+		Birthday: <input type="date" name="bday" /><br/>
+		Birthday (date and time): <input type="datetime" name="bdaytime"/><br/>
+		Birthday (Local date and time): <input type="datetime-local" name="bdaytime"/><br/>
+		E-mail: <input type="email" name="email"/><br/>
+		Number Range: <input type="range" name="points" min="1" max="10"/><br/>
+		Search Google: <input type="search" name="googlesearch"/><br/>
+		Telephone: <input type="tel" name="usrtel"/><br/>
+		Select a time: <input type="time" name="usr_time"/><br/>
+		Add your homepage: <input type="url" name="homepage"/><br/>
+		Select a week: <input type="week" name="week_year"/><br/>
+		<input type="submit" name="Submit" />
+		
+	</form>
+	
+	<div id="navigationDiv"></div>
+	
+	<p><div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="width:350px;height:250px;padding:10px;border:1px solid #aaaaaa;"></div></p>
+	
+	<script>
+		function allowDrop(ev) {
+			ev.preventDefault();
+		}
+		
+		function drag(ev) {
+			ev.dataTransfer.setData("Text",ev.target.id);
+		}
+		
+		function drop(ev) {
+			ev.preventDefault();
+			var data = ev.dataTransfer.getData("Text");
+			ev.target.appendChild(document.getElementById(data));
+		}
+	</script>	
+
+</body>	
+</html>	
+</apex:page>

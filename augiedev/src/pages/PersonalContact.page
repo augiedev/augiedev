@@ -1,0 +1,63 @@
+<apex:page showHeader="false" controller="ContactFormController">
+<script type="text/javascript">
+$(document).ready(function(){
+
+});
+</script>
+
+<style>
+#bodyDiv {
+   //position: relative;
+   top: 0px;
+   height: 100%;
+   border-style: solid; 
+   border-width: 1px;
+   margin-left: 80px;
+   margin-right: 80px;
+   margin-bottom: 80px;
+   background: #d2cfd3;
+   clear: right; 
+}
+
+</style>
+<apex:include pageName="PersonalHeader" />
+
+<div id="bodyDiv" class="ui-corner-all">
+
+   <div id="mainDiv">
+	
+      <div id="pageTitle">Contact</div>
+	
+      <p>Please use the form below to contact me and I will get back to you as soon as possible.<br />
+      Alternatively I can be contacted via email at wschembri@gmail.com or via telephone on +31 (0)6 24165372.</p>
+      <apex:form id="contactForm">
+
+      <apex:panelGrid columns="2" border="0" width="80%" cellpadding="3" >
+         <apex:outputLabel value="Name:" />
+         <apex:inputText id="name" value="{!name}" size="20" />
+         <apex:outputLabel value="Email:" />
+         <apex:inputText id="email" value="{!email}" size="20"  />
+         <apex:outputLabel value="Phone:" />
+         <apex:inputText id="phone" value="{!phone}" size="20"  />
+         <apex:outputLabel value="Country:" />
+         <apex:inputText id="country" value="{!country}" size="20"  />
+         <apex:outputLabel value="Message:" />
+         <apex:inputTextArea id="message" value="{!message}" cols="50" rows="10"/>
+         <br />
+         <apex:commandButton action="{!save}" value=" SEND QUERY " style="width: 150px;"/>
+      </apex:panelGrid>
+	
+      </apex:form>
+
+      <script>
+         // This function handles the colon in VisualForce Ids
+         function jq(myid) {
+            return '#' + myid.replace(/(:|\.)/g,'\\$1');  
+         }  
+         var f = "{!$Component.contactForm}";  
+      </script>	
+   </div>
+</div>
+
+<apex:include pageName="PersonalFooter" />
+</apex:page>

@@ -1,0 +1,223 @@
+<apex:page showHeader="false" sidebar="false" standardStyleSheets="false">
+<head>
+	<title>REST API in Visualforce</title>
+
+	<apex:stylesheet value="{!URLFOR($Resource.jQueryFiles, 'jQueryFiles/css/ui-lightness/jquery-ui-1.8.7.custom.css')}"/>
+	
+	<apex:includeScript value="{!URLFOR($Resource.jQueryFiles, 'jQueryFiles/js/jquery-1.4.4.min.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.jQueryFiles, 'jQueryFiles/js/jquery-ui-1.8.7.custom.min.js')}"/>
+	<apex:includeScript value="{!$Resource.forcetk}" />
+	<apex:includeScript value="{!$Resource.trimpath}" />
+
+	<script type="text/javascript">
+	
+		var $dialog = null;
+
+		// Get a reference to jQuery that doesn't conflict with Visualforce
+		$j = jQuery.noConflict();
+		
+		// Get an instance of the REST API client
+		var client = new forcetk.Client();
+		client.setSessionToken('{!$Api.Session_ID}');
+
+		// Get an account name and put it somewhere on the page
+		/*
+		client.query("SELECT Id, Name FROM Account LIMIT 10", function(response){
+			$j('#accountname').html('ACCOUNTS: ' + response.records.length);
+			var tableDiv = '<table border="5">';
+			for (var i = 0; i < response.records.length; i++) {
+				tableDiv += '<tr><td><a href="#" id="deleteClick" onClick="deleteClick()">Delete</a></td><td>' + response.records[i].Id + '</td><td>' + response.records[i].Name + '</td></tr>';
+			}
+			tableDiv += '</table>';
+			$j('#accountname').append(tableDiv);
+		});
+		*/
+		
+		client.query("SELECT Id, Name, Industry, Business_Number__c FROM Account LIMIT 10", queryCallback, errorCallback);
+		//client.retrieve('Account', '001F000000s7Lex', 'Name,Industry,Business_Number__c', detailCallback, errorCallback);
+
+		$j(document).ready(function(s) {
+
+			$dialog = $j('<div></div>')
+				.dialog({
+					autoOpen: false,
+					width: 450
+			});
+			$j('#createAccountForm').submit(function() {
+				createAccount();
+				return false;
+			});
+		});
+		
+		function deleteClick() {
+			console.log('In delete click function');
+		}
+
+		function createAccount() {
+			var fields = {};
+			fields["Name"] = $j('#name').val();
+			fields["Industry"] = $j('#industry').val();
+			fields["Business_Number__c"] = $j('#accBusinessNumber').val();
+			client.create('Account', fields, createCallback, errorCallback);
+		}
+		
+		function createCallback(response) {
+			$j('#createdAccId').html('<b>CREATED</b><br/>The Id of the Account created is: ' + response.id);
+		}
+
+		function queryCallback(response) {
+			console.log('in queryCallback function');
+			$j('#list').html(TrimPath.processDOMTemplate("accounts_jst", response));
+		/*
+			$j('#version').html($j.fn.jquery);
+			$j('#uiversion').html($j.ui.version);
+		
+			$j("#list tr:nth-child(odd)").addClass("odd");
+		
+			$j('#logout').click(logout);
+		
+			$j('#accounts').find('.id')
+				.hover(function() {
+					 $j(this).addClass("highlighted");
+				   },function(){
+					 $j(this).removeClass("highlighted");
+				})
+				.click(function(){
+					showAccountDetail(this.id);
+				});
+				*/
+		}
+
+		function detailCallback(response) {
+			if (response.Website != null && !response.Website.startsWith('http://')) {
+				response.Website = 'http://'+response.Website;
+			}
+
+			$dialog.html(TrimPath.processDOMTemplate("detail_jst" ,response));
+
+			$dialog.find('#industry').click(function(e) {
+				e.preventDefault();
+				$dialog.dialog('close');
+				filterIndustry($j(this).html());
+			});
+
+			$dialog.find('#delete').click(function(e) {
+				e.preventDefault();
+				$dialog.dialog('close');
+				$j('#list').html(ajaxgif+" deleting account...");
+				client.del('Account', $dialog.find('#id').val(), deleteCallback, errorCallback);
+			});
+			$dialog.find('#edit').click(function(e) {
+				e.preventDefault();
+				$dialog.html(TrimPath.processDOMTemplate("edit_jst" ,response));
+				
+				$dialog.find('#action').html('Update').click(function(e) {
+					e.preventDefault();
+					$dialog.dialog('close');
+		
+					var fields = {};
+					$dialog.find('input').each(function() {
+						var child = $j(this);
+						if ( child.val().length > 0 && child.attr("name") != 'id') {
+							fields[child.attr("name")] = child.val();  
+						}
+					});
+		
+					$j('#list').html(ajaxgif+" updating account...");
+		
+					//client.update('Account', $dialog.find('#id').val(), fields, updateCallback, errorCallback);
+				});
+				
+			});
+			console.log('end of detailCallback method');
+		}
+		
+		function deleteCallback(response) {
+			console.log('in deleteCallback');
+		}
+
+		function errorCallback(jqXHR) {
+		//$j('#createdAccId').html('<b>ERROR</b>: Was not able to create the Account');
+			$dialog.dialog('option', 'title', 'Error');
+			$dialog.dialog('option', 'modal', true);
+			$dialog.html(TrimPath.processDOMTemplate("error_jst", jqXHR));
+			$dialog.find('#ok').click(function(e) {
+				e.preventDefault();
+				$dialog.dialog('close');
+				logout(e);
+			});
+			$dialog.dialog('open');
+		}
+	</script>
+</head>
+<body>
+	<h1>Congratulations</h1>
+	This is your new Page
+	
+	<div id="accountname"></div>
+	
+	<form id="createAccountForm">
+	
+		Account Name: <input type="text" id="name" /><br/>
+		Industry: <input type="text" id="industry" value="Energy" /><br/>
+		Business Number: <input type="text" id="accBusinessNumber" /><br/>
+		<!-- <button id="createAccount1" value="Create Account" text="Create2Account" /> -->
+		<input type="submit" value="Create Account" />
+		
+		<div id="createdAccId"></div>
+	
+	</form>
+	
+	<textarea id="accounts_jst" style="display:none;">
+		<table class="main" id="accounts" border="10">
+			{for r in records}
+				<tr>
+					<td class="id" id="${r.Id}">
+						<form>
+							<input type="hidden" name="id" id="id" value="${r.Id}" />
+							<button id="delete">Delete</button>
+							<button id="edit">Edit</button>
+						</form>
+					</td>
+					<td class="id" id="${r.Id}">NAME: ${r.Name}</td>
+					<td class="id" id="${r.Id}">INDUSTRY: ${r.Industry}</td>
+					<td class="id" id="${r.Id}">BUSINESS NUMBER: ${r.Business_Number__c}</td>
+				</tr>
+			{/for}
+		</table>
+		<br/>
+		<a href="#" id="logout">Logout</a>
+		<p>
+			<i>Running jQuery <span id="version">0.0.0</span>, jQuery UI <span id="uiversion">0.0.0</span></i>
+		</p>
+	</textarea>
+	
+	<textarea id="detail_jst" style="display:none;">
+		<table border="1">
+			<tr>
+				<td><b>Name:</b></td>
+				<td>${Name}</td>
+			</tr>
+			<tr>
+				<td><b>Industry:</b></td>
+				<td><a href="#" id="industry">${Industry}</a></td>
+			</tr>
+			<tr>
+				<td><b>Business Number:</b></td>
+				<td>${Business_Number__c}</td>
+			</tr>
+		</table>
+		<br/>
+		<form>
+			<input type="hidden" name="id" id="id" value="${Id}" />
+			<button id="delete">Delete</button>
+			<button id="edit">Edit</button>
+		</form>	
+	</textarea>
+	
+	<div id="error_jst"></div>
+	<div id="edit_jst"></div>	
+	<div id="logout"></div>
+	<div id="list"></div>
+</body>
+</apex:page>

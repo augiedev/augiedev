@@ -1,0 +1,178 @@
+<apex:page controller="CreateOrderController" sidebar="false">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script>
+    	jQuery(document).ready(function($){
+    var window_width = $(window).width();
+    var window_height = $(window).height();
+
+    //vertical and horizontal centering of modal window(s)
+    /*we will use each function so if we have more then 1
+    modal window we center them all*/
+    $('.modalDiv').each(function(){
+
+        //get the height and width of the modal
+        var modal_height = $(this).outerHeight();
+        var modal_width = $(this).outerWidth();
+
+        //calculate top and left offset needed for centering
+        var top = (window_height-modal_height)/2;
+        var left = (window_width-modal_width)/2;
+
+        //apply new top and left css values
+        $(this).css({'top' : top , 'left' : left});
+
+    });    	
+        	$('[id$=modalLink]').click(function(e){
+        		$('[id$=mask]').css({ 'display' : 'block', opacity : 0});
+
+        		//fade in the mask to opacity 0.8
+        		$('[id$=mask]').fadeTo(500,0.8);        	
+        		$('#modalDiv').fadeIn(500);
+         	});
+        	$('.close_modal').click(function(){
+        		$('[id$=mask]').fadeOut(500);
+
+        		//hide modal window(s)
+        		$('#modalDiv').fadeOut(500);
+
+        	});         	
+      	});
+	</script>
+	<style>
+    #mask{
+        position:absolute; /* important */
+        top:0px; /* start from top */
+        left:0px; /* start from left */
+        height:100%; /* cover the whole page */
+        width:100%;  /* cover the whole page */
+        display:none; /* don't show it '*/
+
+        /* styling bellow */
+        background-color: black;
+    }	
+	#modalDiv{
+        padding:50px;
+        border:1px solid gray;
+        background: #246493;
+        color:red;
+    }
+    .modalDiv{
+        position:absolute; /* important so we can position it on center later */
+        display:none; /* don't show it */
+
+        /* styling below */
+        color:blue;
+    }    
+	</style>
+	</head>
+<center><h1>Create Order - Step 2 of 5</h1></center><br />
+<apex:form >
+<apex:pageBlock >
+    <apex:pageBlockButtons >
+       <apex:commandButton action="{!createOrder1}" value="Previous" styleClass="btn" />
+       <apex:commandButton action="{!createOrder3}" value="Next" styleClass="btn" />
+       </apex:pageBlockButtons>
+<!-- 
+    <apex:facet name="header"> 
+       <apex:commandButton action="{!createOrder1}" value="Previous" styleClass="btn" />
+       <apex:commandButton action="{!createOrder3}" value="Next" styleClass="btn" />
+    </apex:facet>
+    <apex:facet name="footer">
+       <apex:commandButton action="{!createOrder1}" value="Previous" styleClass="btn" />
+       <apex:commandButton action="{!createOrder3}" value="Next" styleClass="btn" />
+    </apex:facet>
+    -->
+    
+	   <apex:tabPanel switchType="client" selectedTab="name1" id="theTabPanel" height="800px">
+	       <apex:tab label="FLUID ROWER" name="name1" id="tab1">
+	      <!--     <apex:actionSupport event="onclick" action="{!updateInnerProdLines}" reRender="tab1Table" >
+	             <apex:param assignTo="{!productLine}" value="FLUID ROWER"/>
+	          </apex:actionSupport>
+	          
+	          -->	       
+			<apex:datatable id="tab1Table" width="100%" value="{!fluidRower}" var="ip" border="2" cellspacing="2" cellpadding="2">
+				<apex:column >
+			      <apex:facet name="header"><center>MODEL</center></apex:facet>
+			      <apex:outputText value="{!ip.model}" />
+			   </apex:column>
+			   <apex:column >
+			      <apex:facet name="header"><center>DESCRIPTION</center></apex:facet>
+			      <apex:outputLink value="#" id="modalLink">
+			      	<apex:outputText value="{!ip.description}" />
+				</apex:outputLink>
+			   </apex:column>
+			   <apex:column >
+			      <apex:facet name="header"><center>COLLECTION LOCATION</center></apex:facet>
+			      <apex:outputText value="{!ip.collectionLocation}" />
+			   </apex:column>   
+			   <apex:column >
+			      <apex:facet name="header"><center>UNIT PRICE</center></apex:facet>
+			      <apex:outputText value="USD {!ip.unitPrice}" />
+			   </apex:column>    
+			   <apex:column >
+			      <apex:facet name="header"><center>QUANTITY</center></apex:facet>
+			      <apex:inputText value="{!ip.quantity}" size="3" maxlength="2">
+			         <apex:actionSupport event="onchange" action="{!ip.updateTotalPrice}" reRender="totalPrice" />
+			      </apex:inputText>
+			   </apex:column>
+			   <apex:column >
+			      <apex:facet name="header"><center>TOTAL PRICE</center></apex:facet>
+			      <apex:outputText value="USD {!ip.totalPrice}" id="totalPrice" />
+			   </apex:column>
+			</apex:datatable>
+			
+		   </apex:tab>
+		   
+	       <apex:tab label="CARDIO" name="name2" id="tab2">Content for tab CARDIO</apex:tab>
+	       
+	       <apex:tab label="SIGNATURE SERIES PLATE LOADED" name="name3" id="tab3">
+	       	       <apex:datatable id="tab3Table" width="100%" value="{!signatureSPL}" var="ip" border="2" cellspacing="2" cellpadding="2">
+			   <apex:column >
+			      <apex:facet name="header"><center>MODEL</center></apex:facet>
+			      <apex:outputText value="{!ip.model}" />
+			   </apex:column>
+			   <apex:column >
+			      <apex:facet name="header"><center>DESCRIPTION</center></apex:facet>
+			      <apex:outputText value="{!ip.description}" />
+			   </apex:column>
+			   <apex:column >
+			      <apex:facet name="header"><center>COLLECTION LOCATION</center></apex:facet>
+			      <apex:outputText value="{!ip.collectionLocation}" />
+			   </apex:column>   
+			   <apex:column >
+			      <apex:facet name="header"><center>UNIT PRICE</center></apex:facet>
+			      <apex:outputText value="USD {!ip.unitPrice}" />
+			   </apex:column>    
+			   <apex:column >
+			      <apex:facet name="header"><center>QUANTITY</center></apex:facet>
+			      <apex:inputText value="{!ip.quantity}" size="3" maxlength="2">
+			         <apex:actionSupport event="onchange" action="{!ip.updateTotalPrice}" reRender="totalPrice" />
+			      </apex:inputText>
+			   </apex:column>
+			   <apex:column >
+			      <apex:facet name="header"><center>TOTAL PRICE</center></apex:facet>
+			      <apex:outputText value="USD {!ip.totalPrice}" id="totalPrice" />
+			   </apex:column>
+			</apex:datatable>
+	       </apex:tab>
+	       <apex:tab label="SIGNATURE SERIES" name="name4" id="tab4">Content for tab SIGNATURE SERIES</apex:tab>
+	       <apex:tab label="SIGNATURE BENCHES & RACKS" name="name5" id="tab5">Content for tab SIGNATURE BENCHES AND RACKS</apex:tab>
+	       <apex:tab label="CIRCUIT SERIES" name="name6" id="tab6">Content for tab CIRCUIT SERIES</apex:tab>
+	       <apex:tab label="OPTIMA SERIES" name="name7" id="tab7">Content for tab OPTIMA SERIES</apex:tab>
+	       <apex:tab label="PRO 2 SERIES" name="name8" id="tab8">Content for tab PRO 2 SERIES</apex:tab>
+	       <apex:tab label="FIT SERIES" name="name9" id="tab9">Content for tab FIT SERIES</apex:tab>
+	       <apex:tab label="CABLE MOTION SERIES" name="name10" id="tab10">Content for tab CABLE MOTION SERIES</apex:tab>
+	       <apex:tab label="MJ4" name="name11" id="tab11">Content for tab MJ4</apex:tab>
+	       <apex:tab label="MJ8" name="name12" id="tab12">Content for tab MJ8</apex:tab>
+	       <apex:tab label="HAMMER STRENGTH" name="name13" id="tab13">Content for tab HAMMER STRENGTH</apex:tab>
+	       <apex:tab label="HAMMER STRENGTH MTS" name="name14" id="tab14">Content for tab HAMMER STRENGTH MTS</apex:tab>
+	       <apex:tab label="FUNCTIONAL ACCESSORIES UK" name="name15" id="tab15">Content for tab FUNCTIONAL ACCESSORIES UK</apex:tab>
+	       <apex:tab label="FUNCTIONAL ACCESSORIES ASIA" name="name16" id="tab16">Content for tab FUNCTIONAL ACCESSORIES ASIA</apex:tab>                
+      </apex:tabPanel>
+</apex:pageBlock>
+<div id="mask" class="close_modal"></div>
+<div id="modalDiv" class="modalDiv">This is a modal test</div>
+</apex:form>
+
+</apex:page>

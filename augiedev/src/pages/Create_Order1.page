@@ -1,0 +1,76 @@
+<apex:page controller="CreateOrderController" sidebar="false">
+<style>
+.line {
+   width: 50px;
+}
+.itemCode {
+   width:100px;
+}
+.quantity {
+   width:50px;
+}
+.quantityTitle {
+   vertical-align: middle;
+   font-weight: bold;
+   font-size: 14px;
+   text-align: center;   
+   width:20px;
+}
+.title {
+   vertical-align: middle;
+   font-weight: bold;
+   font-size: 14px;
+   text-align: center;   
+}
+</style>
+
+<apex:form >
+
+<center><h1>Create Order - Step 1 of 5</h1></center><br />
+
+<apex:pageBlock >
+    <apex:facet name="header">
+       <apex:commandButton action="{!createOrder2}" value="Next" styleClass="btn" />
+    </apex:facet>
+    <apex:facet name="footer">
+       <apex:commandButton action="{!createOrder2}" value="Next" styleClass="btn" />
+    </apex:facet>
+    
+    <apex:pageBlockSection title="Account Information">
+		<apex:pageBlockSectionItem >
+		   <apex:outputText value="Account: " />
+		   <apex:outputText value="{!acc.Name}" />
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+		   <apex:outputText value="Contact: " />
+		   <apex:outputText value="{!con.FirstName} {!con.LastName}" />
+		</apex:pageBlockSectionItem>
+		
+		<apex:pageBlockSectionItem >
+		   <apex:outputText value="Address: " />
+		<apex:panelGrid columns="1">
+		      <apex:outputText value="{!acc.BillingStreet}" />
+		      <apex:outputText value="{!acc.BillingCity}, {!acc.BillingPostalCode}" />
+		      <apex:outputText value="{!acc.BillingCountry}" />      
+		</apex:panelGrid>
+		 </apex:pageBlockSectionItem>  
+	
+	</apex:pageBlockSection>
+
+	<apex:pageBlockSection title="Order Information">
+	   <apex:pageBlockSectionItem >
+	      <apex:outputText value="Your Reference Number: " />
+	      <apex:inputText id="referenceNumber" value="{!referenceNumber}" />
+	   </apex:pageBlockSectionItem>
+
+	   <apex:pageBlockSectionItem >
+	      <apex:outputText value="Desired Delivery Date" />
+	      <apex:inputText id="deliveryDate" value="{!deliveryDate}" />
+	   </apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

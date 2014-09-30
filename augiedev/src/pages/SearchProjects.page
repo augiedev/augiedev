@@ -1,0 +1,103 @@
+<apex:page standardstylesheets="false" sidebar="false" showHeader="false" controller="SearchProjectsController">
+
+<apex:includeScript value="{!URLFOR($Resource.Seeker_JQuery, 'js/jquery-1.4.4.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.Seeker_JQuery, 'js/jquery-ui-1.8.7.custom.min.js')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.Seeker_JQuery, 'css/custom-theme/jquery-ui-1.8.7.custom.css')}"/>
+
+<script type="text/javascript">
+/*
+	 $(document).ready(function(){
+	 	$('[id$=searchProjectsId]').width($(window).width()-200);
+	});
+*/
+</script>
+
+<!-- 
+<apex:composition template="SeekerTemplate">
+<apex:define name="body">
+-->
+<apex:composition template="SeekerTemplate2">
+<apex:define name="content">
+
+	<apex:messages />
+	<apex:form id="form"> 
+
+		<apex:panelGrid id="searchProjectsId" columns="4" border="0" cellspacing="13" cellpadding="15" styleClass="searchGrid">
+			<apex:outputLabel value="Keyword"/>
+			<apex:inputText value="{!keyword}" />
+			<apex:outputLabel value="Budget"/>
+			<apex:selectList value="{!budget}" size="1">
+				<apex:selectOptions value="{!budgetOptions}"/>
+			</apex:selectList>
+			<apex:outputLabel value="Category" />
+			<apex:selectList value="{!category}" size="1">
+				<apex:selectOptions value="{!categoryOptions}"/>
+			</apex:selectList>
+			<apex:outputLabel value="Status" />
+			<apex:selectList value="{!status}" size="1">
+				<apex:selectOptions value="{!statusOptions}"/>
+			</apex:selectList>
+			<apex:commandButton value="Search Projects" action="{!searchProjects}" reRender="projectList" />
+		</apex:panelGrid>
+	
+
+	<apex:outputPanel id="projectList">
+		<apex:outputPanel rendered="{!AND(NOT(ISNULL(projects)), projects.size = 0)}">
+			<div class="header">
+				<apex:outputText value="Sorry, No results were found."/>
+			</div>
+		</apex:outputPanel>	
+		<apex:outputPanel rendered="{!AND(NOT(ISNULL(projects)), projects.size > 0)}">
+			<div class="header">
+				<center><h1>OPEN PROJECTS</h1></center>
+				<apex:dataTable value="{!projects}" var="prj" border="1" width="1200px" align="center" cellspacing="1" cellpadding="5">
+					<apex:column width="225px">
+						<apex:facet name="header">Project Name</apex:facet>
+						<apex:outputLink value="/ViewProject?id={!prj.Id}">
+							<apex:outputText value="{!prj.Title__c}" />
+						</apex:outputLink>
+					</apex:column>
+					<apex:column width="225">
+						<apex:facet name="header">Account</apex:facet>
+						<apex:outputText value="{!prj.Account__r.Name}" />
+					</apex:column>
+					<apex:column width="100">
+						<apex:facet name="header">Start Date</apex:facet>
+						<apex:outputText value="{0, date, dd-MM-yyyy}">
+							<apex:param value="{!prj.Start_Date__c}" />
+						</apex:outputText>
+					</apex:column>
+					<apex:column width="100" >
+						<apex:facet name="header">End Date</apex:facet>
+						<apex:outputText value="{0, date, dd-MM-yyyy}" >
+							<apex:param value="{!prj.End_Date__c}" />
+						</apex:outputText>
+					</apex:column>
+					<apex:column width="225" >
+						<apex:facet name="header">Category</apex:facet>
+						<apex:outputText value="{!prj.Category__c}" />
+					</apex:column>
+					<apex:column width="225" >
+						<apex:facet name="header">Budget</apex:facet>
+						<apex:outputText value="{!prj.Budget__c}" />
+					</apex:column>
+					<apex:column width="100" >
+						<apex:facet name="header">Status</apex:facet>
+						<apex:outputText value="{!prj.Status__c}" />
+					</apex:column>
+				</apex:dataTable>
+			</div>
+		</apex:outputPanel>
+	</apex:outputPanel>
+</apex:form>
+<style>
+.searchGrid {
+	margin-left: 100px;
+	margin-right: 100px;
+}
+</style>
+
+</apex:define>
+
+</apex:composition>
+</apex:page>

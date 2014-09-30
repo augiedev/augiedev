@@ -1,0 +1,53 @@
+<apex:page StandardController="Contact" showHeader="true" sidebar="false">
+
+<script>
+var pos = {};
+function success(position) {
+  pos = position.coords;
+  console.log(pos);
+    alert('pos: ' + pos);  
+    alert('position: ' + position);
+    console.log('LONGITUDE: ' + position.coords.longitude);
+    console.log('LATITUDE: ' + position.coords.latitude);
+}
+
+function error(msg) {
+ console.log(msg);
+}
+
+if (navigator.geolocation) {
+  alert('in nav option');
+  navigator.geolocation.getCurrentPosition(success, error);
+} else {
+  error('not supported');
+}
+
+function setPos() {
+    var inputs = document.getElementsByTagName('input');
+    console.log(inputs);    
+    for(var x = 0; x < inputs.length; x++) {
+
+        if(inputs[x].id.indexOf('contactlat') >= 0) {         alert(inputs[x].id.indexOf('contactlat')); inputs[x].value = pos.latitude; }
+        if(inputs[x].id.indexOf('contactlong') >= 0) {         alert(inputs[x].id.indexOf('contactlong')); inputs[x].value = pos.longitude; }
+    }
+}
+
+</script>
+
+<apex:form >
+
+<apex:pageBlock >
+    <apex:pageBlockButtons >
+                <apex:commandButton action="{!quicksave}" value="Save"/>
+                <button onClick="setPos(); return false;" id="setPosBtn">Set Position</button>
+</apex:pageBlockButtons>
+<apex:pageBlockSection title="My Contact" columns="2">
+    <apex:inputField value="{!Contact.FirstName}" />
+    <apex:inputField value="{!Contact.LastName}" />
+    <apex:inputField value="{!Contact.Email}" id="contactlat" />
+    <apex:inputField value="{!Contact.Department}" id="contactlong" />
+</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+
+</apex:page>
